@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VosynVerse Read Tab</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: white;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1f1f1f;
+      padding: 10px 20px;
+    }
+
+    .left-nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .left-nav img {
+      width: 40px;
+      margin-right: 15px;
+    }
+
+    .left-nav button {
+      background-color: #2b2b2b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-weight: 500;
+    }
+
+    .nav-tabs span {
+      cursor: pointer;
+      padding-bottom: 3px;
+    }
+
+    .nav-tabs .active {
+      border-bottom: 2px solid white;
+      font-weight: bold;
+    }
+
+    .right-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .right-nav select {
+      background-color: #2b2b2b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    .right-nav img {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      object-fit: contain;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: white;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    /* Jump In & Entertainment & Media horizontal scroll row */
+    .card-row {
+      display: flex;
+      overflow-x: auto;
+      gap: 16px;
+      padding-bottom: 5px;
+    }
+
+    /* Cards */
+    .card {
+      background-color: #1f1f1f;
+      border-radius: 8px;
+      width: 200px;
+      flex-shrink: 0;
+      color: white;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .card:hover {
+      background-color: #333333;
+    }
+
+    .card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px 8px 0 0;
+      background-color: #555;
+    }
+
+    .card p {
+      margin: 6px 10px;
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
+
+    /* Side by side VosynVerse Selection and Built for You */
+    .double-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    @media (max-width: 900px) {
+      .double-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="top-nav">
+    <div class="left-nav">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Empty_set_symbol.svg/1200px-Empty_set_symbol.svg.png" alt="Vosyn Logo" />
+      <button>Explore Vosyn</button>
+      <button>Create Dashboard</button>
+    </div>
+    <nav class="nav-tabs" aria-label="Primary navigation tabs">
+      <span>Watch</span>
+      <span>Listen</span>
+      <span class="active">Read</span>
+      <span>Play</span>
+      <span>News</span>
+      <span>Community</span>
+    </nav>
+    <div class="right-nav" aria-label="User utilities">
+      <span id="weather">Loading...</span>
+      <span id="clock">--:--</span>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Settings_font_awesome.svg" alt="Settings" title="Settings" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="Profile" title="Profile" />
+      <select aria-label="Select language">
+        <option>English</option>
+        <option>French</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <!-- Jump In -->
+    <section class="section" aria-label="Jump In recently accessed books">
+      <h2>Jump In</h2>
+      <div class="card-row">
+        <a class="card" href="https://www.gutenberg.org/ebooks/1342" target="_blank" rel="noopener noreferrer">
+          <img src="https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg" alt="Pride and Prejudice book cover" />
+          <p><strong>Pride and Prejudice</strong></p>
+          <p>Jane Austen 🇬🇧</p>
+          <p>Page 120</p>
+        </a>
+        <a class="card" href="https://www.gutenberg.org/ebooks/11" target="_blank" rel="noopener noreferrer">
+          <img src="https://www.gutenberg.org/cache/epub/11/pg11.cover.medium.jpg" alt="Alice in Wonderland book cover" />
+          <p><strong>Alice in Wonderland</strong></p>
+          <p>Lewis Carroll 🇬🇧</p>
+          <p>Page 58</p>
+        </a>
+        <a class="card" href="https://www.gutenberg.org/ebooks/5200" target="_blank" rel="noopener noreferrer">
+          <img src="https://www.gutenberg.org/cache/epub/5200/pg5200.cover.medium.jpg" alt="Metamorphosis book cover" />
+          <p><strong>Metamorphosis</strong></p>
+          <p>Franz Kafka 🇩🇪</p>
+          <p>Page 33</p>
+        </a>
+        <a class="card" href="https://www.gutenberg.org/ebooks/1232" target="_blank" rel="noopener noreferrer">
+          <img src="https://www.gutenberg.org/cache/epub/1232/pg1232.cover.medium.jpg" alt="The Prince book cover" />
+          <p><strong>The Prince</strong></p>
+          <p>Machiavelli 🇮🇹</p>
+          <p>Page 44</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- VosynVerse Selection & Built For You side-by-side -->
+    <section class="section">
+      <div class="double-grid">
+        <div aria-label="VosynVerse Selection trending content">
+          <h2>VosynVerse Selection</h2>
+          <div class="card-row">
+            <a class="card" href="https://www.gutenberg.org/ebooks/98" target="_blank" rel="noopener noreferrer">
+              <img src="https://www.gutenberg.org/cache/epub/98/pg98.cover.medium.jpg" alt="Tale of Two Cities book cover" />
+              <p><strong>Tale of Two Cities</strong></p>
+              <p>Charles Dickens</p>
+            </a>
+            <a class="card" href="https://www.gutenberg.org/ebooks/2701" target="_blank" rel="noopener noreferrer">
+              <img src="https://www.gutenberg.org/cache/epub/2701/pg2701.cover.medium.jpg" alt="Moby Dick book cover" />
+              <p><strong>Moby Dick</strong></p>
+              <p>Herman Melville</p>
+            </a>
+            <a class="card" href="https://www.gutenberg.org/ebooks/1952" target="_blank" rel="noopener noreferrer">
+              <img src="https://www.gutenberg.org/cache/epub/1952/pg1952.cover.medium.jpg" alt="The Yellow Wallpaper book cover" />
+              <p><strong>The Yellow Wallpaper</strong></p>
+              <p>Charlotte Perkins</p>
+            </a>
+          </div>
+        </div>
+
+        <div aria-label="Built for You personalized recommendations">
+          <h2>Built for You</h2>
+          <div class="card-row">
+            <a class="card" href="https://www.gutenberg.org/ebooks/1661" target="_blank" rel="noopener noreferrer">
+              <img src="https://www.gutenberg.org/cache/epub/1661/pg1661.cover.medium.jpg" alt="Sherlock Holmes book cover" />
+              <p><strong>Sherlock Holmes</strong></p>
+              <p>NY Times</p>
+            </a>
+            <a class="card" href="https://www.gutenberg.org/ebooks/84" target="_blank" rel="noopener noreferrer">
+              <img src="https://www.gutenberg.org/cache/epub/84/pg84.cover.medium.jpg" alt="Frankenstein book cover" />
+              <p><strong>Frankenstein</strong></p>
+              <p>Project Gutenberg</p>
+            </a>
+            <a class="card" href="https://www.gutenberg.org/ebooks/1065" target="_blank" rel="noopener noreferrer">
+              <img src="https://www.gutenberg.org/cache/epub/1065/pg1065.cover.medium.jpg" alt="The Raven book cover" />
+              <p><strong>The Raven</strong></p>
+              <p>Edgar Allan Poe</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Entertainment & Media -->
+    <section class="section" aria-label="Entertainment and Media">
+      <h2>Entertainment & Media</h2>
+      <div class="card-row">
+        <a class="card" href="https://www.nytimes.com/section/arts" target="_blank" rel="noopener noreferrer">
+          <img src="https://static01.nyt.com/images/2022/12/18/arts/16artsreview-01/16artsreview-01-mediumThreeByTwo210.jpg" alt="Global Arts Review" />
+          <p><strong>Global Arts Review</strong></p>
+          <p>New York Times</p>
+        </a>
+        <a class="card" href="https://www.bbc.com/news/entertainment_and_arts" target="_blank" rel="noopener noreferrer">
+          <img src="https://ichef.bbci.co.uk/news/976/cpsprodpb/6D15/production/_131497913_gettyimages-1211088888.jpg" alt="Creative Futures" />
+          <p><strong>Creative Futures</strong></p>
+          <p>BBC Editorial</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Update live clock in EST (America/Toronto)
+    function updateClock() {
+      const now = new Date();
+      const options = {
+        timeZone: 'America/Toronto',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      };
+      document.getElementById("clock").textContent = new Intl.DateTimeFormat('en-US', options).format(now);
+    }
+
+    // Fetch Toronto weather (temperature only)
+    async function fetchWeather() {
+      try {
+        const response = await fetch("https://wttr.in/Toronto?format=%t", { cache: "no-cache" });
+        const text = await response.text();
+        document.getElementById("weather").textContent = `${text.trim()} Toronto`;
+      } catch (e) {
+        document.getElementById("weather").textContent = "Weather N/A";
+      }
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+    fetchWeather();
+  </script>
+</body>
+
+</html>
