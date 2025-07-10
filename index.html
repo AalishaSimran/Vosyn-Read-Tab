@@ -1,306 +1,1007 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VosynVerse Read Tab</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #121212;
-      color: white;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vosyn - Read</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #1f1f1f;
-      padding: 10px 20px;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
 
-    .left-nav {
-      display: flex;
-      align-items: center;
-    }
+        /* Top Navigation Bar */
+        .top-nav {
+            background-color: #1a1a1a;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2a2a2a;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-    .left-nav img {
-      width: 40px;
-      margin-right: 15px;
-    }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex: 1;
+        }
 
-    .left-nav button {
-      background-color: #2b2b2b;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      margin-right: 10px;
-      padding: 8px 12px;
-      cursor: pointer;
-    }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+        }
 
-    .nav-tabs {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-weight: 500;
-    }
+        .nav-options {
+            display: flex;
+            gap: 20px;
+        }
 
-    .nav-tabs span {
-      cursor: pointer;
-      padding-bottom: 3px;
-    }
+        .nav-option {
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
 
-    .nav-tabs .active {
-      border-bottom: 2px solid white;
-      font-weight: bold;
-    }
+        .nav-option:hover {
+            color: #ffffff;
+        }
 
-    .right-nav {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+        .search-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
 
-    .right-nav select {
-      background-color: #2b2b2b;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 4px 8px;
-      cursor: pointer;
-    }
+        .search-bar {
+            background-color: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            padding: 8px 16px;
+            color: #ffffff;
+            font-size: 14px;
+            width: 280px;
+        }
 
-    .right-nav img {
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-      object-fit: contain;
-    }
+        .search-bar::placeholder {
+            color: #666;
+        }
 
-    main {
-      padding: 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
+        .search-btn {
+            background-color: #4a9eff;
+            border: none;
+            color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 8px;
+            transition: all 0.2s;
+        }
 
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-      color: white;
-    }
+        .search-btn:hover {
+            background-color: #3a8eef;
+        }
 
-    .section {
-      margin-bottom: 40px;
-    }
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 2;
+            justify-content: center;
+        }
 
-    /* Jump In & Entertainment & Media horizontal scroll row */
-    .card-row {
-      display: flex;
-      overflow-x: auto;
-      gap: 16px;
-      padding-bottom: 5px;
-    }
+        .nav-icons {
+            display: flex;
+            gap: 16px;
+        }
 
-    /* Cards */
-    .card {
-      background-color: #1f1f1f;
-      border-radius: 8px;
-      width: 200px;
-      flex-shrink: 0;
-      color: white;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-    }
+        .nav-icon {
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
 
-    .card:hover {
-      background-color: #333333;
-    }
+        .nav-icon:hover {
+            color: #ffffff;
+            background-color: #2a2a2a;
+        }
 
-    .card img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 8px 8px 0 0;
-      background-color: #555;
-    }
+        .nav-icon.active {
+            color: #ffffff;
+            background-color: #3a3a3a;
+        }
 
-    .card p {
-      margin: 6px 10px;
-      font-size: 0.9rem;
-      line-height: 1.3;
-    }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+            justify-content: flex-end;
+        }
 
-    /* Side by side VosynVerse Selection and Built for You */
-    .double-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-    }
+        .weather-time {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
 
-    @media (max-width: 900px) {
-      .double-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        .weather-info {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .time-info {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .right-icons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .right-icon {
+            background-color: #2a2a2a;
+            border: none;
+            color: #888;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .right-icon:hover {
+            background-color: #3a3a3a;
+            color: #ffffff;
+        }
+
+        .language-dropdown {
+            background-color: #2a2a2a;
+            border: none;
+            color: #888;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .language-dropdown:hover {
+            background-color: #3a3a3a;
+            color: #ffffff;
+        }
+
+        .shuffle-btn {
+            background-color: #4a9eff;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            margin-left: 8px;
+        }
+
+        .shuffle-btn:hover {
+            background-color: #3a8eef;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .content-card {
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #2a2a2a;
+        }
+
+        .content-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-color: #4a9eff;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .trending-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: #ff4444;
+            color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Built for You Section */
+        .built-for-you {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .horizontal-scroll {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 8px;
+        }
+
+        .horizontal-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .horizontal-scroll::-webkit-scrollbar-track {
+            background: #2a2a2a;
+            border-radius: 3px;
+        }
+
+        .horizontal-scroll::-webkit-scrollbar-thumb {
+            background: #4a9eff;
+            border-radius: 3px;
+        }
+
+        .carousel-card {
+            min-width: 200px;
+            flex-shrink: 0;
+        }
+
+        /* Full Content Display */
+        .full-content {
+            display: none;
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+            border: 1px solid #2a2a2a;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .full-content.active {
+            display: block;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .close-btn:hover {
+            color: #ffffff;
+        }
+
+        .content-text {
+            line-height: 1.8;
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        .content-text h1, .content-text h2, .content-text h3 {
+            color: #ffffff;
+            margin: 24px 0 16px 0;
+        }
+
+        .content-text h1 {
+            font-size: 32px;
+            border-bottom: 2px solid #4a9eff;
+            padding-bottom: 8px;
+        }
+
+        .content-text h2 {
+            font-size: 24px;
+            margin-top: 32px;
+        }
+
+        .content-text p {
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+
+        .content-text .chapter {
+            font-style: italic;
+            color: #888;
+            margin-bottom: 24px;
+        }
+
+        .read-more-btn {
+            background-color: #4a9eff;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 24px;
+            transition: all 0.2s;
+        }
+
+        .read-more-btn:hover {
+            background-color: #3a8eef;
+        }
+
+        /* Search Results */
+        .search-results {
+            display: none;
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+            border: 1px solid #2a2a2a;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-result-item {
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .search-result-item:hover {
+            background-color: #3a3a3a;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .built-for-you {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-left {
+                gap: 16px;
+            }
+            
+            .nav-icons {
+                display: none;
+            }
+            
+            .search-bar {
+                width: 200px;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-center {
+                flex: 1;
+            }
+            
+            .nav-right {
+                flex: 1;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <header class="top-nav">
-    <div class="left-nav">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Empty_set_symbol.svg/1200px-Empty_set_symbol.svg.png" alt="Vosyn Logo" />
-      <button>Explore Vosyn</button>
-      <button>Create Dashboard</button>
-    </div>
-    <nav class="nav-tabs" aria-label="Primary navigation tabs">
-      <span>Watch</span>
-      <span>Listen</span>
-      <span class="active">Read</span>
-      <span>Play</span>
-      <span>News</span>
-      <span>Community</span>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="#" class="logo">Vosyn</a>
+            <div class="nav-options">
+                <a href="#" class="nav-option">Explore Vosyn</a>
+                <a href="#" class="nav-option">Create Dashboard</a>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-bar" id="searchInput" placeholder="Search content...">
+                <button class="search-btn" onclick="performSearch()">🔍</button>
+            </div>
+        </div>
+        
+        <div class="nav-center">
+            <div class="nav-icons">
+                <a href="#" class="nav-icon">Watch</a>
+                <a href="#" class="nav-icon">Listen</a>
+                <a href="#" class="nav-icon active">Read</a>
+                <a href="#" class="nav-icon">Play</a>
+                <a href="#" class="nav-icon">News</a>
+                <a href="#" class="nav-icon">Community</a>
+            </div>
+        </div>
+        
+        <div class="nav-right">
+            <div class="weather-time">
+                <div class="weather-info" id="weather">20°C Toronto</div>
+                <div class="time-info" id="time">14:00</div>
+            </div>
+            <div class="right-icons">
+                <button class="right-icon" title="Home">🏠</button>
+                <button class="right-icon" title="Notifications">🔔</button>
+                <button class="right-icon" title="Settings">⚙️</button>
+                <button class="right-icon" title="Profile">👤</button>
+                <select class="language-dropdown">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                </select>
+            </div>
+            <button class="shuffle-btn" onclick="shuffleContent()">🔀 Shuffle</button>
+        </div>
     </nav>
-    <div class="right-nav" aria-label="User utilities">
-      <span id="weather">Loading...</span>
-      <span id="clock">--:--</span>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Settings_font_awesome.svg" alt="Settings" title="Settings" />
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="Profile" title="Profile" />
-      <select aria-label="Select language">
-        <option>English</option>
-        <option>French</option>
-      </select>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Search Results -->
+        <div class="search-results" id="searchResults">
+            <div class="content-header">
+                <h2>Search Results</h2>
+                <button class="close-btn" onclick="hideSearchResults()">&times;</button>
+            </div>
+            <div id="searchResultsContent"></div>
+        </div>
+
+        <!-- Jump In Section -->
+        <section class="section">
+            <h2 class="section-title">Jump In</h2>
+            <p class="section-subtitle">Jump into where you left off on</p>
+            <div class="cards-grid" id="jumpInCards">
+                <!-- Cards will be dynamically populated -->
+            </div>
+            <div class="full-content" id="jumpInContent"></div>
+        </section>
+
+        <!-- VosynVerse Selection and Built for You -->
+        <div class="built-for-you">
+            <section class="section">
+                <h2 class="section-title">VosynVerse Selection</h2>
+                <p class="section-subtitle">Daily selection powered by VosynVerse</p>
+                <div class="cards-grid" id="vosynVerseCards">
+                    <!-- Cards will be dynamically populated -->
+                </div>
+                <div class="full-content" id="vosynVerseContent"></div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Built For You</h2>
+                <p class="section-subtitle">Recommendations from vosynverse made to meet your interests</p>
+                <div class="horizontal-scroll" id="builtForYouCards">
+                    <!-- Cards will be dynamically populated -->
+                </div>
+                <div class="full-content" id="builtForYouContent"></div>
+            </section>
+        </div>
+
+        <!-- Entertainment & Media Section -->
+        <section class="section">
+            <h2 class="section-title">Entertainment & Media</h2>
+            <p class="section-subtitle">Based on your interest in the New Yorker</p>
+            <div class="cards-grid" id="entertainmentCards">
+                <!-- Cards will be dynamically populated -->
+            </div>
+            <div class="full-content" id="entertainmentContent"></div>
+        </section>
     </div>
-  </header>
 
-  <main>
-    <!-- Jump In -->
-    <section class="section" aria-label="Jump In recently accessed books">
-      <h2>Jump In</h2>
-      <div class="card-row">
-        <a class="card" href="https://www.gutenberg.org/ebooks/1342" target="_blank" rel="noopener noreferrer">
-          <img src="https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg" alt="Pride and Prejudice book cover" />
-          <p><strong>Pride and Prejudice</strong></p>
-          <p>Jane Austen 🇬🇧</p>
-          <p>Page 120</p>
-        </a>
-        <a class="card" href="https://www.gutenberg.org/ebooks/11" target="_blank" rel="noopener noreferrer">
-          <img src="https://www.gutenberg.org/cache/epub/11/pg11.cover.medium.jpg" alt="Alice in Wonderland book cover" />
-          <p><strong>Alice in Wonderland</strong></p>
-          <p>Lewis Carroll 🇬🇧</p>
-          <p>Page 58</p>
-        </a>
-        <a class="card" href="https://www.gutenberg.org/ebooks/5200" target="_blank" rel="noopener noreferrer">
-          <img src="https://www.gutenberg.org/cache/epub/5200/pg5200.cover.medium.jpg" alt="Metamorphosis book cover" />
-          <p><strong>Metamorphosis</strong></p>
-          <p>Franz Kafka 🇩🇪</p>
-          <p>Page 33</p>
-        </a>
-        <a class="card" href="https://www.gutenberg.org/ebooks/1232" target="_blank" rel="noopener noreferrer">
-          <img src="https://www.gutenberg.org/cache/epub/1232/pg1232.cover.medium.jpg" alt="The Prince book cover" />
-          <p><strong>The Prince</strong></p>
-          <p>Machiavelli 🇮🇹</p>
-          <p>Page 44</p>
-        </a>
-      </div>
-    </section>
+    <script>
+        // Content Data with enhanced real content
+        const contentData = {
+            jumpIn: [
+                {
+                    id: 1,
+                    title: "The Great Gatsby",
+                    description: "F. Scott Fitzgerald's masterpiece of American literature",
+                    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=300&fit=crop",
+                    type: "eBook",
+                    content: `<h1>The Great Gatsby</h1>
+                    <div class="chapter">Chapter 1</div>
+                    <p>In my younger and more vulnerable years my father gave me some advice that I've carried with me ever since.</p>
+                    <p>"Whenever you feel like criticizing any one," he told me, "just remember that all the people in this world haven't had the advantages that you've had."</p>
+                    <p>He didn't say any more, but we've always been unusually communicative in a reserved way, and I understood that he meant a great deal more than that. In consequence, I'm inclined to reserve all judgments, a habit that has opened up many curious natures to me and also made me the victim of not a few veteran bores.</p>
+                    <p>The abnormal mind is quick to detect and attach itself to this quality when it appears in a normal person, and so it came about that in college I was unjustly accused of being a politician, because I was privy to the secret griefs of wild, unknown men.</p>
+                    <p>Most of the big shore places were closed now and there were hardly any lights except the shadowy, moving glow of a ferryboat across the Sound. And as the moon rose higher the inessential houses began to melt away until gradually I became aware of the old island here that flowered once for Dutch sailors' eyes—a fresh, green breast of the new world.</p>
+                    <p>Its vanished trees, the trees that had made way for Gatsby's house, had once pandered in whispers to the last and greatest of all human dreams; for a transitory enchanted moment man must have held his breath in the presence of this continent, compelled into an aesthetic contemplation he neither understood nor desired, face to face for the last time in history with something commensurate to his capacity for wonder.</p>
+                    <button class="read-more-btn" onclick="openFullBook('gatsby')">Read Full Book</button>`
+                },
+                {
+                    id: 2,
+                    title: "Pride and Prejudice",
+                    description: "Jane Austen's timeless romance",
+                    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop",
+                    type: "eBook",
+                    content: `<h1>Pride and Prejudice</h1>
+                    <div class="chapter">Chapter 1</div>
+                    <p>It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.</p>
+                    <p>However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters.</p>
+                    <p>"My dear Mr. Bennet," said his lady to him one day, "have you heard that Netherfield Park is let at last?"</p>
+                    <p>Mr. Bennet replied that he had not.</p>
+                    <p>"But it is," returned she; "for Mrs. Long has just been here, and she told me all about it."</p>
+                    <p>Mr. Bennet made no answer.</p>
+                    <p>"Do you not want to know who has taken it?" cried his wife impatiently.</p>
+                    <p>"_You_ want to tell me, and I have no objection to hearing it."</p>
+                    <p>This was invitation enough.</p>
+                    <p>"Why, my dear, you must know, Mrs. Long says that Netherfield is taken by a young man of large fortune from the north of England; that he came down on Monday in a chaise and four to see the place, and was so much delighted with it, that he agreed with Mr. Morris immediately; that he is to take possession before Michaelmas, and some of his servants are to be in the house by the end of next week."</p>
+                    <button class="read-more-btn" onclick="openFullBook('pride')">Read Full Book</button>`
+                },
+                {
+                    id: 3,
+                    title: "Japan Times Daily",
+                    description: "Latest news from Japan and Asia",
+                    image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop",
+                    type: "eNewspaper",
+                    content: `<h1>Japan Times - Today's Edition</h1>
+                    <h2>Tech Innovation Drives Economic Growth in Asia</h2>
+                    <p><strong>Tokyo</strong> - Tokyo's technology sector continues to demonstrate remarkable resilience as companies embrace artificial intelligence and robotics integration across multiple industries, according to new government data released today.</p>
+                    <p>Leading manufacturers including Toyota, Sony, and SoftBank report significant productivity gains following the implementation of AI-driven automation systems across their production lines. The integration has resulted in a 23% increase in manufacturing efficiency while reducing operational costs by 15%.</p>
+                    <p>The government's digital transformation initiative, launched last year, has created over 50,000 new jobs in the technology sector this year alone, surpassing initial projections by 40%. These positions span from AI engineers to data scientists and robotics specialists.</p>
+                    <p>"We are witnessing a fundamental shift in how Japanese businesses operate," said Dr. Hiroshi Tanaka, Director of the Institute for Economic Research. "The combination of traditional Japanese manufacturing excellence with cutting-edge AI technology is creating unprecedented opportunities for growth."</p>
+                    <p>The Bank of Japan reports that technology investments have increased by 34% compared to the previous year, with particular emphasis on sustainable energy solutions and smart city infrastructure projects.</p>
+                    <button class="read-more-btn" onclick="openFullArticle('japan-times')">Read Full Article</button>`
+                },
+                {
+                    id: 4,
+                    title: "The New Yorker",
+                    description: "Culture, politics, and ideas",
+                    image: "https://images.unsplash.com/photo-1495020689067-958852a7765e?w=400&h=300&fit=crop",
+                    type: "Magazine",
+                    content: `<h1>The New Yorker</h1>
+                    <h2>The Future of Urban Living: Cities as Living Organisms</h2>
+                    <p>As cities around the world grapple with growing populations and the accelerating impacts of climate change, architects and urban planners are fundamentally reimagining what it means to live in a metropolis. The cities of tomorrow aren't just being planned—they're being grown, nurtured, and designed to breathe.</p>
+                    <p>In Copenhagen, a revolutionary residential complex called "The Living Building" features rooftop farms that supply fresh produce to its residents year-round, while integrated rainwater collection systems provide 60% of the building's water needs. The structure's facade is covered in a living wall of plants that filters air pollution and regulates temperature naturally.</p>
+                    <p>Meanwhile, in Singapore, the city-state's famous "supertrees" have evolved beyond mere aesthetic marvels. These towering vertical gardens now serve as critical infrastructure, generating renewable energy through solar panels integrated into their canopies while their root systems help manage urban flooding through sophisticated water retention networks.</p>
+                    <p>"We're moving beyond the concept of sustainable architecture toward regenerative design," explains Maria Santos, principal architect at Future Cities Institute. "These buildings don't just minimize harm—they actively heal the urban environment."</p>
+                    <p>The implications extend far beyond individual buildings. Entire neighborhoods are being designed as interconnected ecosystems where waste from one building becomes resources for another, and where green corridors allow both wildlife and residents to move freely through the urban landscape.</p>
+                    <button class="read-more-btn" onclick="openFullArticle('new-yorker')">Read Full Article</button>`
+                }
+            ],
+            vosynVerse: [
+                {
+                    id: 5,
+                    title: "Moby Dick",
+                    description: "Herman Melville's epic tale of the sea",
+                    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop",
+                    type: "eBook",
+                    trending: true,
+                    content: `<h1>Moby Dick</h1>
+                    <div class="chapter">Chapter 1: Loomings</div>
+                    <p>Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation.</p>
+                    <p>Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people's hats off—then, I account it high time to get to sea as soon as I can.</p>
+                    <p>This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it, almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean with me.</p>
+                    <p>There now is your insular city of the Manhattoes, belted round by wharves as Indian isles by coral reefs—commerce surrounds it with her surf. Right and left, the streets take you waterward. Its extreme downtown is the battery, where that noble mole is washed by waves and cooled by breezes, which a few hours previous were out of sight of land.</p>
+                    <button class="read-more-btn" onclick="openFullBook('moby-dick')">Read Full Book</button>`
+                },
+                {
+                    id: 6,
+                    title: "Financial Times",
+                    description: "Global business and financial news",
+                    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=300&fit=crop",
+                    type: "eNewspaper",
+                    content: `<h1>Financial Times</h1>
+                    <h2>Global Markets Surge as Tech Earnings Exceed Expectations</h2>
+                    <p><strong>London</strong> - European markets opened significantly higher today as investors demonstrated renewed confidence in the technology sector following exceptionally strong earnings reports from major companies across the Atlantic.</p>
+                    <p>The FTSE 100 gained 2.3% in early trading, while the DAX climbed 2.7% and the CAC 40 rose 2.1%. This optimism was driven by after-hours results from major US technology companies that showed robust growth in AI-related revenue streams.</p>
+                    <p>The sustainable energy sector continues to attract record-breaking investment levels, with renewable energy projects receiving €47 billion in funding this quarter alone—a 65% increase from the same period last year. Wind and solar installations are accelerating globally as governments push toward net-zero emissions targets.</p>
+                    <p>"We're seeing a fundamental shift in how institutional investors view the risk-reward profile of clean energy investments," noted Sarah Mitchell, Chief Investment Officer at Green Capital Partners. "The technology has matured to the point where returns are not just competitive—they're superior."</p>
+                    <p>Central banks across Europe are closely monitoring inflation data, with the European Central Bank expected to maintain its current interest rate stance when policymakers meet next week. Recent economic indicators suggest the region is achieving a delicate balance between growth and price stability.</p>
+                    <button class="read-more-btn" onclick="openFullArticle('financial-times')">Read Full Article</button>`
+                }
+            ],
+            builtForYou: [
+                {
+                    id: 7,
+                    title: "Alice in Wonderland",
+                    description: "Lewis Carroll's whimsical adventure",
+                    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop",
+                    type: "eBook",
+                    content: `<h1>Alice's Adventures in Wonderland</h1>
+                    <div class="chapter">Chapter 1: Down the Rabbit Hole</div>
+                    <p>Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversation?'</p>
+                    <p>So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.</p>
+                    <p>There was nothing so very remarkable in that; nor did Alice think it so very much out of the way to hear the Rabbit say to itself, 'Oh dear! Oh dear! I shall be late!' (when she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural); but when the Rabbit actually took a watch out of its waistcoat-pocket, and looked at it, and then hurried on, Alice started to her feet, for it flashed across her mind that she had never before seen a rabbit with either a waistcoat-pocket, or a watch to take out of it.</p>
+                    <button class="read-more-btn" onclick="openFullBook('alice')">Read Full Book</button>`
+                },
+                {
+                    id: 8,
+                    title: "Scientific American",
+                    description: "Latest in science and technology",
+                    image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400&h=300&fit=crop",
+                    type: "Magazine",
+                    content: `<h1>Scientific American</h1>
+                    <h2>Quantum Computing Breakthrough: The Dawn of Practical Applications</h2>
+                    <p>In a groundbreaking development that could revolutionize computing as we know it, researchers at the Quantum Research Institute have achieved a new milestone in quantum computing, successfully demonstrating quantum advantage in solving real-world optimization problems that have practical commercial applications.</p>
+                    <p>The team, led by Dr. Elena Rodriguez, utilized a 127-qubit quantum processor to solve complex logistics problems in under 10 minutes—calculations that would take classical supercomputers several years to complete. This achievement represents a significant leap forward from previous quantum demonstrations that focused primarily on theoretical problems.</p>
+                    <p>The implications for multiple industries are profound. In cryptography, quantum computers could both threaten current encryption methods and provide unprecedented security through quantum key distribution. In drug discovery, they could simulate molecular interactions with accuracy impossible for classical computers, potentially accelerating the development of new medicines by decades.</p>
+                    <p>"We're not just talking about theoretical possibilities anymore," explains Dr. Rodriguez. "We're seeing practical applications that could transform how we approach artificial intelligence, financial modeling, and climate research within the next five years."</p>
+                    <button class="read-more-btn" onclick="openFullArticle('scientific-american')">Read Full Article</button>`
+                },
+                {
+                    id: 9,
+                    title: "Frankenstein",
+                    description: "Mary Shelley's Gothic masterpiece",
+                    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
+                    type: "eBook",
+                    content: `<h1>Frankenstein</h1>
+                    <div class="chapter">Chapter 1</div>
+                    <p>I am by birth a Genevese, and my family is one of the most distinguished of that republic. My ancestors had been for many years counsellors and syndics, and my father had filled several public situations with honour and reputation. He was respected by all who knew him for his integrity and indefatigable attention to public business.</p>
+                    <p>He passed his younger days perpetually occupied by the affairs of his country; a variety of circumstances had prevented his marrying early, nor was it until the decline of life that he became a husband and the father of a family.</p>
+                    <p>As the circumstances of his marriage illustrate his character, I cannot refrain from relating them. One of his most intimate friends was a merchant who, from a flourishing state, fell, through numerous mischances, into poverty. This man, whose name was Beaufort, was of a proud and unbending disposition and could not bear to live in poverty and oblivion in the same country where he had formerly been distinguished for his rank and magnificence.</p>
+                    <p>Having paid his debts, therefore, in the most honourable manner, he retreated with his daughter to the town of Lucerne, where he lived unknown and in wretchedness. My father loved Beaufort with the truest friendship and was deeply grieved by his retreat in these unfortunate circumstances.</p>
+                    <button class="read-more-btn" onclick="openFullBook('frankenstein')">Read Full Book</button>`
+                }
+            ],
+            entertainment: [
+                {
+                    id: 10,
+                    title: "Vanity Fair",
+                    description: "Culture, fashion, and celebrity",
+                    image: "https://images.unsplash.com/photo-1515378791036-0648a814c963?w=400&h=300&fit=crop",
+                    type: "Magazine",
+                    content: `<h1>Vanity Fair</h1>
+                    <h2>The Renaissance of Storytelling: How Digital Creators Are Redefining Narrative</h2>
+                    <p>In an era where attention spans are measured in seconds and content is consumed at lightning speed, a quiet revolution is taking place in the world of storytelling. Traditional narrative techniques are being reimagined, blended with innovative digital formats to create experiences that are both deeply personal and universally resonant.</p>
+                    <p>Take filmmaker and digital artist Maya Chen, whose interactive documentary "Threads of Memory" allows viewers to experience the story of immigration through multiple generational perspectives. Using virtual reality and AI-generated responses, audiences can engage with characters, ask questions, and even influence the narrative path—creating a unique story each time.</p>
+                    <p>"We're moving beyond passive consumption toward active participation," explains Chen. "The audience becomes part of the story, and the story becomes part of them."</p>
+                    <p>This shift is visible across platforms. Instagram Stories have evolved from simple photo sharing to complex narrative structures. TikTok creators build episodic content that rivals traditional television. Podcasters experiment with immersive audio experiences that transport listeners into fully realized fictional worlds.</p>
+                    <p>The result is a democratization of storytelling unlike anything in human history. Anyone with a smartphone can create content that reaches millions, and the traditional gatekeepers of media are being challenged by creators who understand their audiences on an intimate level.</p>
+                    <button class="read-more-btn" onclick="openFullArticle('vanity-fair')">Read Full Article</button>`
+                },
+                {
+                    id: 11,
+                    title: "The Atlantic",
+                    description: "Politics, culture, and ideas",
+                    image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=300&fit=crop",
+                    type: "Magazine",
+                    content: `<h1>The Atlantic</h1>
+                    <h2>Democracy in the Digital Age: Navigating Truth in the Information Ecosystem</h2>
+                    <p>As social media platforms become increasingly influential in shaping public opinion and political discourse, fundamental questions about their role in democratic society have never been more urgent. The challenge isn't just about combating misinformation—it's about preserving the very foundations of informed democratic participation.</p>
+                    <p>Recent studies indicate that 73% of Americans now get at least some of their news from social media platforms, with younger demographics relying almost exclusively on these sources. This represents a seismic shift from traditional media consumption patterns and raises critical questions about information quality, bias, and the algorithms that determine what content people see.</p>
+                    <p>"We're witnessing the collapse of shared factual reality," warns Dr. Jennifer Walsh, a political scientist at Stanford University who specializes in media and democracy. "When citizens can't agree on basic facts, the deliberative process that democracy depends on becomes impossible."</p>
+                    <p>The challenge is compounded by the business models of major platforms, which prioritize engagement over accuracy. Content that triggers strong emotional responses—whether anger, fear, or outrage—spreads faster and generates more advertising revenue than nuanced, factual reporting.</p>
+                    <p>However, innovative solutions are emerging. Some platforms are experimenting with "friction" features that slow down sharing of potentially false information, while others are investing in fact-checking partnerships and algorithmic changes that promote authoritative sources.</p>
+                    <button class="read-more-btn" onclick="openFullArticle('the-atlantic')">Read Full Article</button>`
+                },
+                {
+                    id: 12,
+                    title: "Harper's Magazine",
+                    description: "Literature, politics, culture",
+                    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
+                    type: "Magazine",
+                    content: `<h1>Harper's Magazine</h1>
+                    <h2>The Resurrection of Independent Bookstores: Community, Culture, and Commerce</h2>
+                    <p>Despite dire predictions about their inevitable demise in the digital age, independent bookstores across America are experiencing a remarkable renaissance. These literary havens are not just surviving—they're thriving by transforming themselves into cultural community centers that offer experiences no algorithm can replicate.</p>
+                    <p>The American Booksellers Association reports that the number of independent bookstores has grown by 35% over the past decade, with new shops opening at a rate of nearly one per week. This growth comes even as e-book sales have plateaued and online retail continues to dominate consumer spending.</p>
+                    <p>"Books are just the beginning," explains Maria Santos, owner of Turning Pages in Portland, Oregon. "We're creating spaces where ideas can breathe, where communities can gather, and where the art of slow, thoughtful consumption can flourish."</p>
+                    <p>Modern independent bookstores have evolved far beyond their traditional retail model. They host author readings, book clubs, writing workshops, and poetry slams. Many serve coffee and wine, creating café atmospheres that encourage lingering. Some have partnered with local schools to provide literacy programs, while others focus on amplifying voices from underrepresented communities.</p>
+                    <p>The pandemic paradoxically accelerated this transformation. As physical gathering became impossible, many bookstores pivoted to virtual events, discovering they could reach audiences far beyond their geographic boundaries. A bookstore in rural Vermont could host a reading for customers in California, creating new forms of literary community.</p>
+                    <button class="read-more-btn" onclick="openFullArticle('harpers')">Read Full Article</button>`
+                },
+                {
+                    id: 13,
+                    title: "Wired",
+                    description: "Technology and innovation",
+                    image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
+                    type: "Magazine",
+                    content: `<h1>Wired</h1>
+                    <h2>The Symbiosis Revolution: How Human-AI Collaboration is Reshaping Creative Work</h2>
+                    <p>The question is no longer whether artificial intelligence will replace human workers, but how humans and AI can collaborate to achieve results that neither could accomplish alone. Early adopters across creative industries are already demonstrating the extraordinary potential of this symbiotic relationship.</p>
+                    <p>At Pixar Animation Studios, directors now work alongside AI systems that can generate hundreds of visual concepts in minutes, allowing human artists to focus on the emotional resonance and narrative coherence that makes great animation. The AI doesn't replace the artist's vision—it amplifies it, providing a vast palette of possibilities that human creativity can shape and refine.</p>
+                    <p>In music composition, artists like Grammy-winner Taryn Southern have created entire albums using AI-generated melodies and harmonies as starting points, then layering human vocals, lyrics, and emotional interpretation. "The AI gives me musical ideas I never would have thought of," Southern explains. "But it takes human intuition to know which ideas have soul."</p>
+                    <p>The legal profession is experiencing similar transformation. Law firms are using AI to analyze thousands of legal documents in seconds, identifying relevant precedents and potential arguments. This frees human lawyers to focus on strategy, client relationships, and the nuanced interpretation of how legal principles apply to specific circumstances.</p>
+                    <p>Perhaps most surprisingly, AI is enhancing rather than diminishing human creativity. By handling routine tasks and generating multiple options quickly, AI allows humans to spend more time on the uniquely human aspects of work: emotional intelligence, ethical reasoning, and the ability to see connections across disparate fields.</p>
+                    <button class="read-more-btn" onclick="openFullArticle('wired')">Read Full Article</button>`
+                }
+            ]
+        };
 
-    <!-- VosynVerse Selection & Built For You side-by-side -->
-    <section class="section">
-      <div class="double-grid">
-        <div aria-label="VosynVerse Selection trending content">
-          <h2>VosynVerse Selection</h2>
-          <div class="card-row">
-            <a class="card" href="https://www.gutenberg.org/ebooks/98" target="_blank" rel="noopener noreferrer">
-              <img src="https://www.gutenberg.org/cache/epub/98/pg98.cover.medium.jpg" alt="Tale of Two Cities book cover" />
-              <p><strong>Tale of Two Cities</strong></p>
-              <p>Charles Dickens</p>
-            </a>
-            <a class="card" href="https://www.gutenberg.org/ebooks/2701" target="_blank" rel="noopener noreferrer">
-              <img src="https://www.gutenberg.org/cache/epub/2701/pg2701.cover.medium.jpg" alt="Moby Dick book cover" />
-              <p><strong>Moby Dick</strong></p>
-              <p>Herman Melville</p>
-            </a>
-            <a class="card" href="https://www.gutenberg.org/ebooks/1952" target="_blank" rel="noopener noreferrer">
-              <img src="https://www.gutenberg.org/cache/epub/1952/pg1952.cover.medium.jpg" alt="The Yellow Wallpaper book cover" />
-              <p><strong>The Yellow Wallpaper</strong></p>
-              <p>Charlotte Perkins</p>
-            </a>
-          </div>
-        </div>
+        // All content for search functionality
+        const allContent = [
+            ...contentData.jumpIn,
+            ...contentData.vosynVerse,
+            ...contentData.builtForYou,
+            ...contentData.entertainment
+        ];
 
-        <div aria-label="Built for You personalized recommendations">
-          <h2>Built for You</h2>
-          <div class="card-row">
-            <a class="card" href="https://www.gutenberg.org/ebooks/1661" target="_blank" rel="noopener noreferrer">
-              <img src="https://www.gutenberg.org/cache/epub/1661/pg1661.cover.medium.jpg" alt="Sherlock Holmes book cover" />
-              <p><strong>Sherlock Holmes</strong></p>
-              <p>NY Times</p>
-            </a>
-            <a class="card" href="https://www.gutenberg.org/ebooks/84" target="_blank" rel="noopener noreferrer">
-              <img src="https://www.gutenberg.org/cache/epub/84/pg84.cover.medium.jpg" alt="Frankenstein book cover" />
-              <p><strong>Frankenstein</strong></p>
-              <p>Project Gutenberg</p>
-            </a>
-            <a class="card" href="https://www.gutenberg.org/ebooks/1065" target="_blank" rel="noopener noreferrer">
-              <img src="https://www.gutenberg.org/cache/epub/1065/pg1065.cover.medium.jpg" alt="The Raven book cover" />
-              <p><strong>The Raven</strong></p>
-              <p>Edgar Allan Poe</p>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+        // Current content references
+        let currentContent = null;
+        let currentSection = null;
 
-    <!-- Entertainment & Media -->
-    <section class="section" aria-label="Entertainment and Media">
-      <h2>Entertainment & Media</h2>
-      <div class="card-row">
-        <a class="card" href="https://www.nytimes.com/section/arts" target="_blank" rel="noopener noreferrer">
-          <img src="https://static01.nyt.com/images/2022/12/18/arts/16artsreview-01/16artsreview-01-mediumThreeByTwo210.jpg" alt="Global Arts Review" />
-          <p><strong>Global Arts Review</strong></p>
-          <p>New York Times</p>
-        </a>
-        <a class="card" href="https://www.bbc.com/news/entertainment_and_arts" target="_blank" rel="noopener noreferrer">
-          <img src="https://ichef.bbci.co.uk/news/976/cpsprodpb/6D15/production/_131497913_gettyimages-1211088888.jpg" alt="Creative Futures" />
-          <p><strong>Creative Futures</strong></p>
-          <p>BBC Editorial</p>
-        </a>
-      </div>
-    </section>
-  </main>
+        // Initialize the page
+        function initializePage() {
+            renderCards('jumpInCards', contentData.jumpIn);
+            renderCards('vosynVerseCards', contentData.vosynVerse);
+            renderCarouselCards('builtForYouCards', contentData.builtForYou);
+            renderCards('entertainmentCards', contentData.entertainment);
+            updateTime();
+            setInterval(updateTime, 1000);
+            
+            // Add search functionality
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        }
 
-  <script>
-    // Update live clock in EST (America/Toronto)
-    function updateClock() {
-      const now = new Date();
-      const options = {
-        timeZone: 'America/Toronto',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false,
-      };
-      document.getElementById("clock").textContent = new Intl.DateTimeFormat('en-US', options).format(now);
-    }
+        // Search functionality
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            if (!searchTerm) return;
 
-    // Fetch Toronto weather (temperature only)
-    async function fetchWeather() {
-      try {
-        const response = await fetch("https://wttr.in/Toronto?format=%t", { cache: "no-cache" });
-        const text = await response.text();
-        document.getElementById("weather").textContent = `${text.trim()} Toronto`;
-      } catch (e) {
-        document.getElementById("weather").textContent = "Weather N/A";
-      }
-    }
+            const results = allContent.filter(item => 
+                item.title.toLowerCase().includes(searchTerm) ||
+                item.description.toLowerCase().includes(searchTerm) ||
+                item.type.toLowerCase().includes(searchTerm) ||
+                item.content.toLowerCase().includes(searchTerm)
+            );
 
-    setInterval(updateClock, 1000);
-    updateClock();
-    fetchWeather();
-  </script>
+            displaySearchResults(results, searchTerm);
+        }
+
+        // Display search results
+        function displaySearchResults(results, searchTerm) {
+            const searchResults = document.getElementById('searchResults');
+            const searchResultsContent = document.getElementById('searchResultsContent');
+            
+            hideContent(); // Hide any open content first
+            
+            if (results.length === 0) {
+                searchResultsContent.innerHTML = `<p>No results found for "${searchTerm}"</p>`;
+            } else {
+                searchResultsContent.innerHTML = `
+                    <h3>Found ${results.length} result(s) for "${searchTerm}":</h3>
+                    ${results.map(item => `
+                        <div class="search-result-item" onclick="showContentFromSearch('${item.id}')">
+                            <h4>${item.title}</h4>
+                            <p>${item.description}</p>
+                            <small>${item.type}</small>
+                        </div>
+                    `).join('')}
+                `;
+            }
+            
+            searchResults.classList.add('active');
+            searchResults.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Show content from search results
+        function showContentFromSearch(itemId) {
+            const item = allContent.find(content => content.id == itemId);
+            if (item) {
+                showContent(item, 'searchResults');
+            }
+        }
+
+        // Hide search results
+        function hideSearchResults() {
+            document.getElementById('searchResults').classList.remove('active');
+        }
+
+        // Render cards for a section
+        function renderCards(containerId, cards) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'content-card';
+                cardElement.style.position = 'relative';
+                cardElement.onclick = () => showContent(card, containerId.replace('Cards', ''));
+                
+                cardElement.innerHTML = `
+                    ${card.trending ? '<div class="trending-tag">Trending</div>' : ''}
+                    <img src="${card.image}" alt="${card.title}" class="card-image" onerror="this.src='https://images.unsplash.com/photo-1495020689067-958852a7765e?w=400&h=300&fit=crop';">
+                    <div class="card-content">
+                        <h3 class="card-title">${card.title}</h3>
+                        <p class="card-description">${card.description}</p>
+                    </div>
+                `;
+                
+                container.appendChild(cardElement);
+            });
+        }
+
+        // Render carousel cards
+        function renderCarouselCards(containerId, cards) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'content-card carousel-card';
+                cardElement.onclick = () => showContent(card, containerId.replace('Cards', ''));
+                
+                cardElement.innerHTML = `
+                    <img src="${card.image}" alt="${card.title}" class="card-image" onerror="this.src='https://images.unsplash.com/photo-1495020689067-958852a7765e?w=400&h=300&fit=crop';">
+                    <div class="card-content">
+                        <h3 class="card-title">${card.title}</h3>
+                        <p class="card-description">${card.description}</p>
+                    </div>
+                `;
+                
+                container.appendChild(cardElement);
+            });
+        }
+
+        // Show full content
+        function showContent(card, section) {
+            // Hide any currently open content
+            if (currentContent) {
+                currentContent.classList.remove('active');
+            }
+            
+            // Hide search results if showing
+            hideSearchResults();
+            
+            const contentContainer = document.getElementById(section + 'Content');
+            contentContainer.innerHTML = `
+                <div class="content-header">
+                    <h2>${card.title}</h2>
+                    <button class="close-btn" onclick="hideContent()">&times;</button>
+                </div>
+                <div class="content-text">
+                    ${card.content}
+                </div>
+            `;
+            
+            contentContainer.classList.add('active');
+            currentContent = contentContainer;
+            currentSection = section;
+            
+            // Scroll to content
+            contentContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Hide content
+        function hideContent() {
+            if (currentContent) {
+                currentContent.classList.remove('active');
+                currentContent = null;
+                currentSection = null;
+            }
+        }
+
+        // Open full book/article (placeholder for actual implementation)
+        function openFullBook(bookId) {
+            alert(`Opening full book: ${bookId}. In a real implementation, this would open the complete book content or redirect to a reading interface.`);
+        }
+
+        function openFullArticle(articleId) {
+            alert(`Opening full article: ${articleId}. In a real implementation, this would open the complete article content or redirect to the full article page.`);
+        }
+
+        // Shuffle content
+        function shuffleContent() {
+            // Shuffle arrays
+            shuffleArray(contentData.jumpIn);
+            shuffleArray(contentData.vosynVerse);
+            shuffleArray(contentData.builtForYou);
+            shuffleArray(contentData.entertainment);
+            
+            // Re-render cards
+            renderCards('jumpInCards', contentData.jumpIn);
+            renderCards('vosynVerseCards', contentData.vosynVerse);
+            renderCarouselCards('builtForYouCards', contentData.builtForYou);
+            renderCards('entertainmentCards', contentData.entertainment);
+            
+            // Hide any open content
+            hideContent();
+            hideSearchResults();
+            
+            // Show shuffle feedback
+            const shuffleBtn = document.querySelector('.shuffle-btn');
+            const originalText = shuffleBtn.textContent;
+            shuffleBtn.textContent = '✓ Shuffled!';
+            setTimeout(() => {
+                shuffleBtn.textContent = originalText;
+            }, 1000);
+        }
+
+        // Shuffle array utility
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Update time display
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: false, 
+                hour: '2-digit', 
+                minute: '2-digit',
+                timeZone: 'America/Toronto'
+            });
+            document.getElementById('time').textContent = timeString;
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializePage);
+    </script>
 </body>
-
 </html>
